@@ -1,0 +1,13 @@
+/* 아래의 방식이 아닌 */
+/* .nav ul {
+  display: flex;
+} */
+
+/* 이방식으로 바꿔서 적용하였다., */
+.navList {
+  display: flex;
+}
+
+.navList:hover {
+  background-color: blue;
+}
