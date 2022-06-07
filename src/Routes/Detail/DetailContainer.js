@@ -2,6 +2,7 @@ import { movieApi, tvApi } from 'api';
 import React from 'react';
 import DetailPresenter from './DetailPresenter';
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component {
   constructor(props) {
     super(props);

@@ -50,7 +50,8 @@ const List = styled.ul`
   }
 `;
 
-//styled components로 불러온것은 props(current)로 값을 넘겨받을 수 있다. 값을 받아 css를 바꿔보자
+//styled components로 불러온것은 props(current 해당컴포넌트의 props)로 값을 넘겨받을 수 있다. 
+//값을 받아 css를 바꿔보자
 const Item = styled.li`
   width: 80px;
   height: 50px;

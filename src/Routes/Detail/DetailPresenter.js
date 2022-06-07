@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import Loader from 'Components/Loader';
-import Helmet from 'react-helmet';
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import Loader from "Components/Loader";
+import Helmet from "react-helmet";
 
 //React Helmet은 쉽게 웹사이트의 해더를 바꿔줄수 있게 만들어준다!
 const Container = styled.div`
@@ -18,7 +18,7 @@ const Backdrop = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url(${props => props.bgImage});
+  background-image: url(${(props) => props.bgImage});
   background-position: center center;
   background-size: cover;
   filter: blur(3px);
@@ -36,7 +36,7 @@ const Content = styled.div`
 
 const Cover = styled.div`
   width: 30%;
-  background-image: url(${props => props.bgImage});
+  background-image: url(${(props) => props.bgImage});
   background-position: center center;
   background-size: cover;
   height: 100%;
@@ -69,30 +69,32 @@ const Overview = styled.p`
   width: 50%;
 `;
 
-const DetailPresenter = ({result, loading, error}) => {
-  console.log('result: ', result);
-  return (
-    loading 
-      ? (
+const DetailPresenter = ({ result, loading, error }) => {
+  console.log("result: ", result);
+  return loading ? (
+    <>
+      <Helmet>
+        <title>Loading | Nomflix</title>
+      </Helmet>
+      <Loader />
+    </>
+  ) : (
+    <Container>
+      {result ? (
         <>
           <Helmet>
-            <title>Loading | Nomflix</title>
-          </Helmet>
-          <Loader />
-        </>
-      ) 
-      : (
-        <Container>
-          <Helmet>
             <title>
-              {result.original_title ? result.original_title : result.original_name}{" "} | Nomflix
+              {result.original_title
+                ? result.original_title
+                : result.original_name}{" "}
+              | Nomflix
             </title>
           </Helmet>
-          <Backdrop 
+          <Backdrop
             bgImage={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
           />
           <Content>
-            <Cover 
+            <Cover
               bgImage={
                 result.poster_path
                   ? `https://image.tmdb.org/t/p/original${result.poster_path}`
@@ -108,28 +110,32 @@ const DetailPresenter = ({result, loading, error}) => {
               <ItemContainer>
                 <Item>
                   {result.release_date
-                    ? result.release_date.substring(0,4)
-                    : result.first_air_date.substring(0,4)}
+                    ? result.release_date.substring(0, 4)
+                    : result.first_air_date.substring(0, 4)}
                 </Item>
                 <Divider>*</Divider>
                 <Item>
-                  {result.runtime? result.runtime : result.episode_run_time[0]} min
+                  {result.runtime ? result.runtime : result.episode_run_time[0]}{" "}
+                  min
                 </Item>
                 <Divider>*</Divider>
                 <Item>
                   {result.genres &&
-                    result.genres.map((genre, index) => 
+                    result.genres.map((genre, index) =>
                       index === result.genres.length - 1
                         ? genre.name
                         : `${genre.name} /`
-                  )}
+                    )}
                 </Item>
               </ItemContainer>
               <Overview>{result.overview}</Overview>
             </Data>
           </Content>
-        </Container>
-      )
+        </>
+      ) : (
+        <>'No Data'</>
+      )}
+    </Container>
   );
 };
 
